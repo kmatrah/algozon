@@ -31013,8 +31013,9 @@ var ListComponent = function (_Component) {
             'className': 'hit-name',
             'dangerouslySetInnerHTML': { __html: hit._highlightResult.name.value }
           }), createVNode(2, 'div', {
-            'className': 'hit-category'
-          }, hit.category)]));
+            'className': 'hit-category',
+            'dangerouslySetInnerHTML': { __html: hit.category }
+          })]));
         }));
       }
     }
@@ -31347,10 +31348,6 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var TABLE_HIGHLIGHT_ATTRIBUTES = ['name'];
-
-var TABLE_ATTRIBUTES = ['category', 'rank'];
-
 function mapStateToProps(_ref) {
   var searchResult = _ref.searchResult,
       viewMode = _ref.viewMode;
@@ -31375,18 +31372,12 @@ var TableComponent = function (_Component) {
       if (this.props.viewMode === 'table') {
         return createVNode(2, 'table', {
           'className': 'hits-table'
-        }, [createVNode(2, 'thead', null, createVNode(2, 'tr', null, [TABLE_HIGHLIGHT_ATTRIBUTES.map(function (attr) {
-          return createVNode(2, 'th', null, attr);
-        }), TABLE_ATTRIBUTES.map(function (attr) {
-          return createVNode(2, 'th', null, attr);
-        })])), createVNode(2, 'tbody', null, this.props.hits.map(function (hit) {
-          return createVNode(2, 'tr', null, [TABLE_HIGHLIGHT_ATTRIBUTES.map(function (attr) {
-            return createVNode(2, 'td', {
-              'dangerouslySetInnerHTML': { __html: hit._highlightResult[attr].value }
-            });
-          }), TABLE_ATTRIBUTES.map(function (attr) {
-            return createVNode(2, 'td', null, hit[attr]);
-          })]);
+        }, [createVNode(2, 'thead', null, createVNode(2, 'tr', null, [createVNode(2, 'th', null, 'Name'), createVNode(2, 'th', null, 'CatCgory'), createVNode(2, 'th', null, 'Rank')])), createVNode(2, 'tbody', null, this.props.hits.map(function (hit) {
+          return createVNode(2, 'tr', null, [createVNode(2, 'td', {
+            'dangerouslySetInnerHTML': { __html: hit._highlightResult.name.value }
+          }), createVNode(2, 'td', {
+            'dangerouslySetInnerHTML': { __html: hit.category }
+          }), createVNode(2, 'td', null, hit.rank)]);
         }))]);
       }
     }

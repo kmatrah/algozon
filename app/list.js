@@ -34,7 +34,7 @@ class ListComponent extends Component {
                 }
               </div>
               <div className="hit-name" dangerouslySetInnerHTML={{ __html: hit._highlightResult.name.value }}></div>
-              <div className="hit-category">{hit.category}</div>
+              <div className="hit-category" dangerouslySetInnerHTML={{ __html: hit.category }}></div>
             </a>
           </li>
         ))}

@@ -2,11 +2,6 @@ import Inferno from 'inferno'
 import Component from 'inferno-component'
 import { connect } from 'inferno-redux'
 
-
-const TABLE_HIGHLIGHT_ATTRIBUTES = ['name']
-
-const TABLE_ATTRIBUTES = ['category', 'rank']
-
 function mapStateToProps({ searchResult, viewMode }) {
   return searchResult === null ?
     { viewMode, hits: [] } :
@@ -19,15 +14,17 @@ class TableComponent extends Component {
       return  <table className="hits-table">
         <thead>
           <tr>
-            { TABLE_HIGHLIGHT_ATTRIBUTES.map(attr => <th>{attr}</th>) }
-            { TABLE_ATTRIBUTES.map(attr => <th>{attr}</th>) }
+            <th>Name</th>
+            <th>CatCgory</th>
+            <th>Rank</th>
           </tr>
         </thead>
         <tbody>
           { this.props.hits.map(hit => (
             <tr>
-              { TABLE_HIGHLIGHT_ATTRIBUTES.map(attr => <td dangerouslySetInnerHTML={{ __html: hit._highlightResult[attr].value }}></td>) }
-              { TABLE_ATTRIBUTES.map(attr => <td>{hit[attr]}</td>) }
+              <td dangerouslySetInnerHTML={{ __html: hit._highlightResult.name.value }}></td>
+              <td dangerouslySetInnerHTML={{ __html: hit.category }}></td>
+              <td>{hit.rank}</td>
             </tr>
           ))}
         </tbody>
