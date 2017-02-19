@@ -30897,7 +30897,7 @@ var GridComponent = function (_Component) {
           }, _this2.state.errors[hit.objectID] ? createVNode(2, 'div', {
             'className': 'image-error'
           }, createVNode(2, 'i', {
-            'className': 'fa fa-remove'
+            'className': 'fa fa-chain-broken'
           })) : createVNode(2, 'img', {
             'src': hit.image
           }, null, {
@@ -31001,7 +31001,7 @@ var ListComponent = function (_Component) {
           }, _this2.state.errors[hit.objectID] ? createVNode(2, 'div', {
             'className': 'image-error'
           }, createVNode(2, 'i', {
-            'className': 'fa fa-remove'
+            'className': 'fa fa-chain-broken'
           })) : createVNode(2, 'img', {
             'src': hit.image
           }, null, {
@@ -44775,70 +44775,7 @@ function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj;
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-// const appId = 'GIH37VVGGY';
-// const apiKey = '04fda7fc532f6a41d8fdf993f3f41836';
-// const indexName = 'apps';
-
-// const client = algoliasearch(appId, apiKey);
-// const helper = algoliasearchHelper(client, indexName, {
-//   disjunctiveFacets: ['category']
-// })
-
-// let initialState = {
-//   helper: helper,
-//   searchResult: null,
-//   viewMode: 'list',
-//   bookmarks: JSON.parse(localStorage.getItem("bookmarks") || "[]")
-// }
-
-// const app = (state = initialState, action) => {
-//   return {
-//     helper: helperReducer(state.helper, action),
-//     searchResult: searchResultReducer(state.searchResult, action),
-//     viewMode: viewModeReducer(state.viewMode, action),
-//     bookmarks: bookmarksReducer(state.bookmarks, action)
-//   }
-// }
-
-var app = (0, _redux.combineReducers)(reducers);
-
-// const helperReducer = (state, action) => {
-//   switch (action.type) {
-//     case UPDATE_SEARCH:
-//       return action.helper
-//     default:
-//       return state
-//   }
-// }
-
-// const searchResultReducer = (state, action) => {
-//   switch (action.type) {
-//     case UPDATE_RESULT:
-//       return action.searchResult
-//     default:
-//       return state
-//   }
-// }
-
-// const viewModeReducer = (state, action) => {
-//   switch (action.type) {
-//     case SELECT_MODE:
-//       return action.mode
-//     default:
-//       return state
-//   }
-// }
-
-// const bookmarksReducer = (state, action) => {
-//   switch (action.type) {
-//     case SET_BOOKMARKS:
-//       return action.bookmarks
-//     default:
-//       return state
-//   }
-// }
-
-var store = (0, _redux.createStore)(app);
+var store = (0, _redux.createStore)((0, _redux.combineReducers)(reducers));
 
 _helper2.default.on('result', function (searchResult) {
   store.dispatch({ type: _actions.UPDATE_RESULT, searchResult: searchResult });

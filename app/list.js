@@ -29,7 +29,7 @@ class ListComponent extends Component {
             <a href={hit.link} target="_blank">
               <div className="hit-thumb">
                 { this.state.errors[hit.objectID] ?
-                  <div className="image-error"><i className="fa fa-remove"></i></div> :
+                  <div className="image-error"><i className="fa fa-chain-broken"></i></div> :
                   <img onError={e => this.handleError(hit, e)} src={hit.image} />
                 }
               </div>
