@@ -1,0 +1,16 @@
+.pagination {
+  margin-top: 20px;
+  text-align: center;
+
+  a {
+    display: inline-block;
+    margin: 0 4px;
+    padding: 6px 10px;
+    border: 1px solid $border-color;
+  }
+
+  .current-page {
+    color: $secondary-color;
+    margin: 0 4px;
+  }
+}

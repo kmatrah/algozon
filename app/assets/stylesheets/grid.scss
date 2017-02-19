@@ -1,0 +1,19 @@
+.hits-grid {
+  img {
+    vertical-align: middle;
+    width: 20%;
+    height: 200px;
+    display: inline-block;
+    margin: 20px;
+  }
+
+  .image-error {
+    display: inline-block;
+    width: 20%;
+    height: 200px;
+    line-height: 200px;
+    margin: 20px;
+    background: $background-alt-color;
+    text-align: center;
+  }
+}

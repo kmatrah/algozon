@@ -1,0 +1,32 @@
+.bookmarks {
+  input {
+    padding: 6px 10px;
+    font-size: 14px;
+  }
+
+  .notice {
+    padding: 10px;
+    background: scale-color($ternary-color, $lightness: 85%);
+    margin-bottom: 10px;
+  }
+
+  li {
+    padding: 10px;
+    margin-bottom: 4px;
+    background: $background-alt-color;
+    transition: background .2s;
+
+    &:hover {
+      cursor: pointer;
+      background: scale-color($secondary-color, $lightness: 85%);
+
+      a {
+        color: $secondary-color;
+      }
+    }
+  }
+
+  .bookmark-delete {
+    float: right;
+  }
+}

@@ -1,0 +1,43 @@
+.hits-list {
+  background: #fff;
+
+  li {
+    border-bottom: 1px solid $border-color;
+
+    &:last-child {
+      border: 0;
+    }
+  }
+
+  a {
+    display: block;
+    padding: 10px 0;
+  }
+
+  .hit-thumb {
+    float: left;
+    img {
+      width: 40px;
+      height: 40px;
+    }
+  }
+
+  .hit-name {
+    font-size: 18px;
+    margin-left: 60px;
+    margin-bottom: 6px;
+  }
+
+  .hit-category {
+    margin-left: 60px;
+    font-size: 14px;
+  }
+
+  .image-error {
+    width: 40px;
+    height: 40px;
+    line-height: 40px;
+    background: $background-alt-color;
+    text-align: center;
+  }
+}

@@ -1,0 +1,159 @@
+* {
+  box-sizing: border-box;
+}
+
+html {
+  height: 100%;
+}
+
+body {
+  position: relative;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Rubik', sans-serif;
+  font-size: $font-size;
+  font-weight: $font-weight;
+  color: $text-color;
+}
+
+
+header {
+  height: 50px;
+  background: $background-inverse-color;
+  h1 {
+    margin: 0;
+    text-align: center;
+    font-size: 24px;
+    text-transform: uppercase;
+    font-weight: $font-weight;
+    color: $text-inverse-color;
+    line-height: 50px;
+  }
+
+  i {
+    color: $ternary-color;
+  }
+
+  span {
+    font-size: 12px;
+  }
+}
+
+.app {
+  width: 1200px;
+  margin: auto;
+}
+
+.view {
+  background: #fff;
+  padding: 20px;
+  margin-left: $facets-width;
+}
+
+a {
+  color: $main-color;
+  text-decoration: none;
+  transition: color .2s;
+
+  &:visited {
+    color: $main-color;
+  }
+
+  &:hover {
+    color: $secondary-color;
+  }
+}
+
+ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+input[type="text"] {
+  font-family: 'Rubik', sans-serif;
+  width: 100%;
+  padding: 4px 6px;
+  outline: none;
+  border: 1px solid $border-color;
+  font-size: 12px;
+  font-weight: $font-weight;
+  transition: border-color .2s;
+
+  &:focus {
+    border-color: $border-alt-color;
+  }
+}
+
+em {
+  background: scale-color($secondary-color, $lightness: 85%);
+  color: $secondary-color;
+}
+
+.clearfix {
+  clear: both;
+}
+
+table {
+  padding: 0;
+  margin: 0;
+  width: 100%;
+  border-collapse: collapse;
+
+  thead {
+    th {
+      text-align: left;
+      color: $text-color-lite;
+      border-bottom: 1px solid $border-color;
+      height: 30px;
+      font-weight: 100;
+
+      &:first-child {
+        padding-left: 10px;
+      }
+    }
+  }
+
+  tbody {
+    tr:nth-child(odd) {
+      td {
+        background: $background-alt-color;
+      }
+    }
+    tr:hover {
+      td {
+        color: $secondary-color;
+        cursor: pointer;
+        background: scale-color($secondary-color, $lightness: 85%);
+      }
+    }
+
+    td {
+      height: 28px;
+      &:first-child {
+        padding-left: 10px;
+      }
+    }
+  }
+}
+
+::-webkit-input-placeholder {
+  font-family: 'Rubik', sans-serif !important;
+  font-weight: $font-weight;
+}
+::-moz-placeholder {
+  font-family: 'Rubik', sans-serif !important;
+  font-weight: $font-weight;
+}
+:-ms-input-placeholder {
+  font-family: 'Rubik', sans-serif !important;
+  font-weight: $font-weight;
+}
+:-moz-placeholder {
+  font-family: 'Rubik', sans-serif !important;
+  font-weight: $font-weight;
+}

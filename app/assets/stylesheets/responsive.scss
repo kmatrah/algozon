@@ -1,0 +1,45 @@
+@media all and (min-width: 1024px) and (max-width: 1280px) {
+  .app {
+    width: 100%;
+  }
+
+  .view {
+    margin-left: 30%;
+  }
+
+  .facets {
+    width: 30%;
+  }
+}
+
+@media all and (max-width: 1024px) {
+  .app {
+    width: 100%;
+  }
+
+  .view {
+    margin-left: 0;
+  }
+
+  .facets {
+    float: none;
+    width: 100%;
+  }
+
+  .toolbar .total-time {
+    display: none;
+  }
+
+  .hits-grid {
+    img {
+      height: 100px;
+      margin: 5px;
+    }
+
+    .image-error {
+      height: 100px;
+      line-height: 100px;
+      margin: 5px;
+    }
+  }
+}
