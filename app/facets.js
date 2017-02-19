@@ -42,15 +42,14 @@ class FacetsComponent extends Component {
           <ul>
             { this.props.facetValues[facet].map(facetValue => (
               <li className={facetValue.isRefined ? 'facet active' : 'facet'}>
-                <span className="facet-check">
-                  <input type="checkbox" checked={facetValue.isRefined} />
-                  <label></label>
-                </span>
-                <a className="facet-value" href
-                  onClick={e => this.toggleFacetValue(facet, facetValue.name, e) }>
-                  {facetValue.name}
+                <a href onClick={e => this.toggleFacetValue(facet, facetValue.name, e) }>
+                  <span className="facet-check">
+                    <input type="checkbox" checked={facetValue.isRefined} />
+                    <label></label>
+                  </span>
+                  <span className="facet-value">{facetValue.name}</span>
+                  <span className="facet-count">{facetValue.count}</span>
                 </a>
-                <span className="facet-count">{facetValue.count}</span>
               </li>
             ))}
           </ul>

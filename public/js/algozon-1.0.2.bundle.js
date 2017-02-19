@@ -30794,21 +30794,22 @@ var FacetsComponent = function (_Component) {
         }) : '']), createVNode(2, 'ul', null, _this2.props.facetValues[facet].map(function (facetValue) {
           return createVNode(2, 'li', {
             'className': facetValue.isRefined ? 'facet active' : 'facet'
+          }, createVNode(2, 'a', {
+            'href': true
           }, [createVNode(2, 'span', {
             'className': 'facet-check'
           }, [createVNode(512, 'input', {
             'type': 'checkbox',
             'checked': facetValue.isRefined
-          }), createVNode(2, 'label')]), createVNode(2, 'a', {
-            'className': 'facet-value',
-            'href': true
-          }, facetValue.name, {
+          }), createVNode(2, 'label')]), createVNode(2, 'span', {
+            'className': 'facet-value'
+          }, facetValue.name), createVNode(2, 'span', {
+            'className': 'facet-count'
+          }, facetValue.count)], {
             'onClick': function onClick(e) {
               return _this2.toggleFacetValue(facet, facetValue.name, e);
             }
-          }), createVNode(2, 'span', {
-            'className': 'facet-count'
-          }, facetValue.count)]);
+          }));
         }))]);
       }));
     }
