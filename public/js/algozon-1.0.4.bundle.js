@@ -31121,41 +31121,37 @@ var PaginationComponent = function (_Component) {
     value: function render() {
       return createVNode(2, 'div', {
         'class': 'pagination'
-      }, [createVNode(2, 'a', {
+      }, [this.props.page > 0 ? createVNode(2, 'a', {
         'href': true,
-        'className': 'begin',
-        'disabled': this.props.page <= 0
+        'className': 'begin'
       }, createVNode(2, 'i', {
         'className': 'fa fa-angle-double-left'
       }), {
         'onClick': this.begin
-      }), createVNode(2, 'a', {
+      }) : '', this.props.page > 0 ? createVNode(2, 'a', {
         'href': true,
-        'className': 'previous',
-        'disabled': this.props.page <= 0
+        'className': 'previous'
       }, createVNode(2, 'i', {
         'className': 'fa fa-angle-left'
       }), {
         'onClick': this.previous
-      }), createVNode(2, 'span', {
+      }) : '', createVNode(2, 'span', {
         'className': 'current-page'
-      }, [this.props.page + 1, ' / ', this.props.nbPages]), createVNode(2, 'a', {
+      }, [this.props.page + 1, ' / ', this.props.nbPages]), this.props.page + 1 < this.props.nbPages ? createVNode(2, 'a', {
         'href': true,
-        'className': 'next',
-        'disabled': this.props.page + 1 >= this.props.nbPages
+        'className': 'next'
       }, createVNode(2, 'i', {
         'className': 'fa fa-angle-right'
       }), {
         'onClick': this.next
-      }), createVNode(2, 'a', {
+      }) : '', this.props.page + 1 < this.props.nbPages ? createVNode(2, 'a', {
         'href': true,
-        'className': 'end',
-        'disabled': this.props.page + 1 >= this.props.nbPages
+        'className': 'end'
       }, createVNode(2, 'i', {
         'className': 'fa fa-angle-double-right'
       }), {
         'onClick': this.end
-      })]);
+      }) : '']);
     }
   }]);
 

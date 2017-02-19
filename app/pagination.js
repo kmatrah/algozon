@@ -48,11 +48,11 @@ class PaginationComponent extends Component {
 
   render() {
     return <div class="pagination">
-      <a href className="begin" onClick={this.begin} disabled={this.props.page <= 0}><i className="fa fa-angle-double-left"></i></a>
-      <a href className="previous" onClick={this.previous} disabled={this.props.page <= 0}><i className="fa fa-angle-left"></i></a>
+      { this.props.page > 0 ? <a href className="begin" onClick={this.begin}><i className="fa fa-angle-double-left"></i></a> : '' }
+      { this.props.page > 0 ? <a href className="previous" onClick={this.previous}><i className="fa fa-angle-left"></i></a> : '' }
       <span className="current-page">{this.props.page + 1} / {this.props.nbPages}</span>
-      <a href className="next" onClick={this.next} disabled={this.props.page + 1 >= this.props.nbPages}><i className="fa fa-angle-right"></i></a>
-      <a href className="end" onClick={this.end} disabled={this.props.page + 1 >= this.props.nbPages}><i className="fa fa-angle-double-right"></i></a>
+      { this.props.page + 1 < this.props.nbPages ? <a href className="next" onClick={this.next}><i className="fa fa-angle-right"></i></a> : '' }
+      { this.props.page + 1 < this.props.nbPages ? <a href className="end" onClick={this.end}><i className="fa fa-angle-double-right"></i></a> : '' }
     </div>
   }
 }
