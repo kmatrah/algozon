@@ -9,6 +9,14 @@
 
   .facets {
     width: 30%;
+
+    .facet.active {
+      .facet-value {
+        &:hover {
+          text-decoration: none;
+        }
+      }
+    }
   }
 }
 
@@ -24,6 +32,14 @@
   .facets {
     float: none;
     width: 100%;
+
+    .facet.active {
+      .facet-value {
+        &:hover {
+          text-decoration: none;
+        }
+      }
+    }
   }
 
   .toolbar .total-time {

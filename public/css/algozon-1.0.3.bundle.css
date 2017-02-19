@@ -47,8 +47,10 @@ a {
   transition: color .2s; }
   a:visited {
     color: #212121; }
-  a:hover {
+  a:hover, a:active {
     color: #338ca6; }
+  a:focus {
+    color: #212121; }
 
 ul {
   list-style-type: none;
@@ -297,7 +299,9 @@ table {
   .view {
     margin-left: 30%; }
   .facets {
-    width: 30%; } }
+    width: 30%; }
+    .facets .facet.active .facet-value:hover {
+      text-decoration: none; } }
 
 @media all and (max-width: 1024px) {
   .app {
@@ -307,6 +311,8 @@ table {
   .facets {
     float: none;
     width: 100%; }
+    .facets .facet.active .facet-value:hover {
+      text-decoration: none; }
   .toolbar .total-time {
     display: none; }
   .hits-grid img {
