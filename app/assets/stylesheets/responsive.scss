@@ -40,6 +40,9 @@
 
   .facet-toggler {
     display: block;
+    &:hover {
+      color: $text-inverse-color;
+    }
   }
 
   .facets {
@@ -54,6 +57,10 @@
       position: absolute;
       top: 50px;
       left: 0;
+    }
+
+    .facet-value:hover {
+      color: $main-color;
     }
 
     .facet.active {
