@@ -30608,19 +30608,78 @@ function mapStateToProps(_ref) {
 
 var createVNode = _inferno2.default.createVNode;
 
-var BookmarksComponent = function (_Component) {
-  _inherits(BookmarksComponent, _Component);
+var Bookmark = function (_Component) {
+  _inherits(Bookmark, _Component);
 
-  function BookmarksComponent(props) {
-    _classCallCheck(this, BookmarksComponent);
+  function Bookmark() {
+    _classCallCheck(this, Bookmark);
 
-    var _this = _possibleConstructorReturn(this, (BookmarksComponent.__proto__ || Object.getPrototypeOf(BookmarksComponent)).call(this, props));
-
-    _this.save = _this.save.bind(_this);
-    return _this;
+    return _possibleConstructorReturn(this, (Bookmark.__proto__ || Object.getPrototypeOf(Bookmark)).apply(this, arguments));
   }
 
-  _createClass(BookmarksComponent, [{
+  _createClass(Bookmark, [{
+    key: 'load',
+    value: function load(e) {
+      e.preventDefault();
+      this.props.helper.setState(_algoliasearchHelper2.default.url.getStateFromQueryString(this.props.bookmark.state));
+      this.context.store.dispatch({ type: _actions.UPDATE_SEARCH, helper: this.props.helper });
+      this.context.store.dispatch({ type: _actions.SELECT_MODE, mode: 'list' });
+      this.props.helper.search();
+    }
+  }, {
+    key: 'delete',
+    value: function _delete(e) {
+      var _this2 = this;
+
+      e.preventDefault();
+      var bookmarks = _.compact(this.props.bookmarks.map(function (b) {
+        return b.name === _this2.props.bookmark.name ? null : b;
+      }));
+      localStorage.setItem("bookmarks", JSON.stringify(bookmarks));
+      this.context.store.dispatch({ type: _actions.SET_BOOKMARKS, bookmarks: bookmarks });
+    }
+  }, {
+    key: 'render',
+    value: function render() {
+      var _this3 = this;
+
+      return createVNode(2, 'li', null, [createVNode(2, 'a', {
+        'href': true
+      }, [createVNode(2, 'i', {
+        'className': 'fa fa-caret-right'
+      }), ' ', this.props.bookmark.name], {
+        'onClick': function onClick(e) {
+          return _this3.load(e);
+        }
+      }), createVNode(2, 'a', {
+        'className': 'bookmark-delete',
+        'href': true
+      }, createVNode(2, 'i', {
+        'className': 'fa fa-trash'
+      }), {
+        'onClick': function onClick(e) {
+          return _this3.delete(e);
+        }
+      })]);
+    }
+  }]);
+
+  return Bookmark;
+}(_infernoComponent2.default);
+
+var BookmarksContainer = function (_Component2) {
+  _inherits(BookmarksContainer, _Component2);
+
+  function BookmarksContainer(props) {
+    _classCallCheck(this, BookmarksContainer);
+
+    var _this4 = _possibleConstructorReturn(this, (BookmarksContainer.__proto__ || Object.getPrototypeOf(BookmarksContainer)).call(this, props));
+
+    _this4.save = _this4.save.bind(_this4);
+    return _this4;
+  }
+
+  _createClass(BookmarksContainer, [{
     key: 'save',
     value: function save(e) {
       e.preventDefault();
@@ -30632,28 +30691,9 @@ var BookmarksComponent = function (_Component) {
       }
     }
   }, {
-    key: 'load',
-    value: function load(bookmark, e) {
-      e.preventDefault();
-      this.props.helper.setState(_algoliasearchHelper2.default.url.getStateFromQueryString(bookmark.state));
-      this.context.store.dispatch({ type: _actions.UPDATE_SEARCH, helper: this.props.helper });
-      this.context.store.dispatch({ type: _actions.SELECT_MODE, mode: 'list' });
-      this.props.helper.search();
-    }
-  }, {
-    key: 'delete',
-    value: function _delete(index, e) {
-      e.preventDefault();
-      var bookmarks = _.compact(this.props.bookmarks.map(function (b, i) {
-        return i === index ? null : b;
-      }));
-      localStorage.setItem("bookmarks", JSON.stringify(bookmarks));
-      this.context.store.dispatch({ type: _actions.SET_BOOKMARKS, bookmarks: bookmarks });
-    }
-  }, {
     key: 'render',
     value: function render() {
-      var _this2 = this;
+      var _this5 = this;
 
       if (this.props.viewMode === 'bookmarks') {
         return createVNode(2, 'div', {
@@ -30666,33 +30706,20 @@ var BookmarksComponent = function (_Component) {
         }, null, {
           'onChange': this.save
         }), this.props.bookmarks.length === 0 ? createVNode(2, 'p', null, 'You haven\'t saved any bookmarks') : createVNode(2, 'p', null, 'Your bookmarks :'), createVNode(2, 'ul', null, this.props.bookmarks.map(function (bookmark, i) {
-          return createVNode(2, 'li', null, [createVNode(2, 'a', {
-            'href': true
-          }, [createVNode(2, 'i', {
-            'className': 'fa fa-caret-right'
-          }), ' ', bookmark.name], {
-            'onClick': function onClick(e) {
-              return _this2.load(bookmark, e);
-            }
-          }), createVNode(2, 'a', {
-            'className': 'bookmark-delete',
-            'href': true
-          }, createVNode(2, 'i', {
-            'className': 'fa fa-trash'
-          }), {
-            'onClick': function onClick(e) {
-              return _this2.delete(i, e);
-            }
-          })]);
+          return createVNode(16, Bookmark, {
+            'bookmark': bookmark,
+            'bookmarks': _this5.props.bookmarks,
+            'helper': _this5.props.helper
+          });
         }))]);
       }
     }
   }]);
 
-  return BookmarksComponent;
+  return BookmarksContainer;
 }(_infernoComponent2.default);
 
-var Bookmarks = (0, _infernoRedux.connect)(mapStateToProps)(BookmarksComponent);
+var Bookmarks = (0, _infernoRedux.connect)(mapStateToProps)(BookmarksContainer);
 
 exports.default = Bookmarks;
 
@@ -30748,28 +30775,20 @@ function mapStateToProps(_ref) {
 
 var createVNode = _inferno2.default.createVNode;
 
-var FacetsComponent = function (_Component) {
-  _inherits(FacetsComponent, _Component);
+var FacetValue = function (_Component) {
+  _inherits(FacetValue, _Component);
 
-  function FacetsComponent() {
-    _classCallCheck(this, FacetsComponent);
+  function FacetValue() {
+    _classCallCheck(this, FacetValue);
 
-    return _possibleConstructorReturn(this, (FacetsComponent.__proto__ || Object.getPrototypeOf(FacetsComponent)).apply(this, arguments));
+    return _possibleConstructorReturn(this, (FacetValue.__proto__ || Object.getPrototypeOf(FacetValue)).apply(this, arguments));
   }
 
-  _createClass(FacetsComponent, [{
+  _createClass(FacetValue, [{
     key: 'toggleFacetValue',
-    value: function toggleFacetValue(attribute, value, e) {
+    value: function toggleFacetValue(facetName, value, e) {
       e.preventDefault();
-      var helper = this.props.helper.toggleRefine(attribute, value);
-      this.context.store.dispatch({ type: _actions.UPDATE_SEARCH, helper: helper });
-      helper.search();
-    }
-  }, {
-    key: 'clearFacet',
-    value: function clearFacet(attribute, e) {
-      e.preventDefault();
-      var helper = this.props.helper.clearRefinements(attribute);
+      var helper = this.props.helper.toggleRefine(facetName, value);
       this.context.store.dispatch({ type: _actions.UPDATE_SEARCH, helper: helper });
       helper.search();
     }
@@ -30778,47 +30797,105 @@ var FacetsComponent = function (_Component) {
     value: function render() {
       var _this2 = this;
 
-      return createVNode(2, 'ul', {
-        'className': 'facets'
-      }, this.props.facets.map(function (facet) {
-        return createVNode(2, 'li', null, [createVNode(2, 'div', {
-          'className': 'facet-name'
-        }, ['Filter by ', facet, _this2.props.helper.hasRefinements(facet) ? createVNode(2, 'a', {
-          'href': true
-        }, createVNode(2, 'i', {
-          'className': 'fa fa-remove'
-        }), {
-          'onClick': function onClick(e) {
-            return _this2.clearFacet(facet, e);
-          }
-        }) : '']), createVNode(2, 'ul', null, _this2.props.facetValues[facet].map(function (facetValue) {
-          return createVNode(2, 'li', {
-            'className': facetValue.isRefined ? 'facet active' : 'facet'
-          }, createVNode(2, 'a', {
-            'href': true
-          }, [createVNode(2, 'span', {
-            'className': 'facet-check'
-          }, [createVNode(512, 'input', {
-            'type': 'checkbox',
-            'checked': facetValue.isRefined
-          }), createVNode(2, 'label')]), createVNode(2, 'span', {
-            'className': 'facet-value'
-          }, facetValue.name), createVNode(2, 'span', {
-            'className': 'facet-count'
-          }, facetValue.count)], {
-            'onClick': function onClick(e) {
-              return _this2.toggleFacetValue(facet, facetValue.name, e);
-            }
-          }));
-        }))]);
+      return createVNode(2, 'li', {
+        'className': this.props.facetValue.isRefined ? 'facet active' : 'facet'
+      }, createVNode(2, 'a', {
+        'href': true
+      }, [createVNode(2, 'span', {
+        'className': 'facet-check'
+      }, [createVNode(512, 'input', {
+        'type': 'checkbox',
+        'checked': this.props.facetValue.isRefined
+      }), createVNode(2, 'label')]), createVNode(2, 'span', {
+        'className': 'facet-value'
+      }, this.props.facetValue.name), createVNode(2, 'span', {
+        'className': 'facet-count'
+      }, this.props.facetValue.count)], {
+        'onClick': function onClick(e) {
+          return _this2.toggleFacetValue(_this2.props.facetName, _this2.props.facetValue.name, e);
+        }
       }));
     }
   }]);
 
-  return FacetsComponent;
+  return FacetValue;
 }(_infernoComponent2.default);
 
-var Facets = (0, _infernoRedux.connect)(mapStateToProps)(FacetsComponent);
+var Facet = function (_Component2) {
+  _inherits(Facet, _Component2);
+
+  function Facet() {
+    _classCallCheck(this, Facet);
+
+    return _possibleConstructorReturn(this, (Facet.__proto__ || Object.getPrototypeOf(Facet)).apply(this, arguments));
+  }
+
+  _createClass(Facet, [{
+    key: 'clearFacet',
+    value: function clearFacet(name, e) {
+      e.preventDefault();
+      var helper = this.props.helper.clearRefinements(name);
+      this.context.store.dispatch({ type: _actions.UPDATE_SEARCH, helper: helper });
+      helper.search();
+    }
+  }, {
+    key: 'render',
+    value: function render() {
+      var _this4 = this;
+
+      return createVNode(2, 'li', null, [createVNode(2, 'div', {
+        'className': 'facet-name'
+      }, ['Filter by ', this.props.name, this.props.helper.hasRefinements(this.props.name) ? createVNode(2, 'a', {
+        'href': true
+      }, createVNode(2, 'i', {
+        'className': 'fa fa-remove'
+      }), {
+        'onClick': function onClick(e) {
+          return _this4.clearFacet(_this4.props.name, e);
+        }
+      }) : '']), createVNode(2, 'ul', null, this.props.facetValues.map(function (facetValue) {
+        return createVNode(16, FacetValue, {
+          'facetName': _this4.props.name,
+          'facetValue': facetValue,
+          'helper': _this4.props.helper
+        });
+      }))]);
+    }
+  }]);
+
+  return Facet;
+}(_infernoComponent2.default);
+
+var FacetsContainer = function (_Component3) {
+  _inherits(FacetsContainer, _Component3);
+
+  function FacetsContainer() {
+    _classCallCheck(this, FacetsContainer);
+
+    return _possibleConstructorReturn(this, (FacetsContainer.__proto__ || Object.getPrototypeOf(FacetsContainer)).apply(this, arguments));
+  }
+
+  _createClass(FacetsContainer, [{
+    key: 'render',
+    value: function render() {
+      var _this6 = this;
+
+      return createVNode(2, 'ul', {
+        'className': 'facets'
+      }, this.props.facets.map(function (facet) {
+        return createVNode(16, Facet, {
+          'name': facet,
+          'facetValues': _this6.props.facetValues[facet],
+          'helper': _this6.props.helper
+        });
+      }));
+    }
+  }]);
+
+  return FacetsContainer;
+}(_infernoComponent2.default);
+
+var Facets = (0, _infernoRedux.connect)(mapStateToProps)(FacetsContainer);
 
 exports.default = Facets;
 
@@ -30847,8 +30924,6 @@ var _infernoRedux = __webpack_require__(8);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
@@ -30864,48 +30939,67 @@ function mapStateToProps(_ref) {
 
 var createVNode = _inferno2.default.createVNode;
 
-var GridComponent = function (_Component) {
-  _inherits(GridComponent, _Component);
+var Cell = function (_Component) {
+  _inherits(Cell, _Component);
 
-  function GridComponent(props) {
-    _classCallCheck(this, GridComponent);
+  function Cell(props) {
+    _classCallCheck(this, Cell);
 
-    var _this = _possibleConstructorReturn(this, (GridComponent.__proto__ || Object.getPrototypeOf(GridComponent)).call(this, props));
+    var _this = _possibleConstructorReturn(this, (Cell.__proto__ || Object.getPrototypeOf(Cell)).call(this, props));
 
-    _this.state = {
-      errors: {}
-    };
+    _this.state = { loadingError: false };
     return _this;
   }
 
-  _createClass(GridComponent, [{
+  _createClass(Cell, [{
     key: 'handleError',
-    value: function handleError(hit, e) {
-      this.setState({ errors: _.merge({}, this.state.errors, _defineProperty({}, hit.objectID, true)) });
+    value: function handleError() {
+      this.setState({ loadingError: true });
     }
   }, {
     key: 'render',
     value: function render() {
       var _this2 = this;
 
+      return createVNode(2, 'a', {
+        'href': this.props.hit.link,
+        'target': '_blank'
+      }, this.state.loadingError ? createVNode(2, 'div', {
+        'className': 'image-error'
+      }, createVNode(2, 'i', {
+        'className': 'fa fa-chain-broken'
+      })) : createVNode(2, 'img', {
+        'src': this.props.hit.image
+      }, null, {
+        'onError': function onError(e) {
+          return _this2.handleError();
+        }
+      }));
+    }
+  }]);
+
+  return Cell;
+}(_infernoComponent2.default);
+
+var GridContainer = function (_Component2) {
+  _inherits(GridContainer, _Component2);
+
+  function GridContainer() {
+    _classCallCheck(this, GridContainer);
+
+    return _possibleConstructorReturn(this, (GridContainer.__proto__ || Object.getPrototypeOf(GridContainer)).apply(this, arguments));
+  }
+
+  _createClass(GridContainer, [{
+    key: 'render',
+    value: function render() {
       if (this.props.viewMode === 'grid') {
         return createVNode(2, 'div', {
           'className': 'hits-grid'
         }, [this.props.hits.map(function (hit) {
-          return createVNode(2, 'a', {
-            'href': hit.link,
-            'target': '_blank'
-          }, _this2.state.errors[hit.objectID] ? createVNode(2, 'div', {
-            'className': 'image-error'
-          }, createVNode(2, 'i', {
-            'className': 'fa fa-chain-broken'
-          })) : createVNode(2, 'img', {
-            'src': hit.image
-          }, null, {
-            'onError': function onError(e) {
-              return _this2.handleError(hit, e);
-            }
-          }));
+          return createVNode(16, Cell, {
+            'hit': hit
+          });
         }), createVNode(2, 'div', {
           'className': 'clearfix'
         })]);
@@ -30913,10 +31007,10 @@ var GridComponent = function (_Component) {
     }
   }]);
 
-  return GridComponent;
+  return GridContainer;
 }(_infernoComponent2.default);
 
-var Grid = (0, _infernoRedux.connect)(mapStateToProps)(GridComponent);
+var Grid = (0, _infernoRedux.connect)(mapStateToProps)(GridContainer);
 
 exports.default = Grid;
 
@@ -30949,8 +31043,6 @@ var _lodash2 = _interopRequireDefault(_lodash);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
@@ -30966,65 +31058,84 @@ function mapStateToProps(_ref) {
 
 var createVNode = _inferno2.default.createVNode;
 
-var ListComponent = function (_Component) {
-  _inherits(ListComponent, _Component);
+var ListItem = function (_Component) {
+  _inherits(ListItem, _Component);
 
-  function ListComponent(props) {
-    _classCallCheck(this, ListComponent);
+  function ListItem(props) {
+    _classCallCheck(this, ListItem);
 
-    var _this = _possibleConstructorReturn(this, (ListComponent.__proto__ || Object.getPrototypeOf(ListComponent)).call(this, props));
+    var _this = _possibleConstructorReturn(this, (ListItem.__proto__ || Object.getPrototypeOf(ListItem)).call(this, props));
 
-    _this.state = {
-      errors: {}
-    };
+    _this.state = { loadingError: false };
     return _this;
   }
 
-  _createClass(ListComponent, [{
+  _createClass(ListItem, [{
     key: 'handleError',
-    value: function handleError(hit, e) {
-      this.setState({ errors: _lodash2.default.merge({}, this.state.errors, _defineProperty({}, hit.objectID, true)) });
+    value: function handleError() {
+      this.setState({ loadingError: true });
     }
   }, {
     key: 'render',
     value: function render() {
       var _this2 = this;
 
+      return createVNode(2, 'li', null, createVNode(2, 'a', {
+        'href': this.props.hit.link,
+        'target': '_blank'
+      }, [createVNode(2, 'div', {
+        'className': 'hit-thumb'
+      }, this.state.loadingError ? createVNode(2, 'div', {
+        'className': 'image-error'
+      }, createVNode(2, 'i', {
+        'className': 'fa fa-chain-broken'
+      })) : createVNode(2, 'img', {
+        'src': this.props.hit.image
+      }, null, {
+        'onError': function onError(e) {
+          return _this2.handleError();
+        }
+      })), createVNode(2, 'div', {
+        'className': 'hit-name',
+        'dangerouslySetInnerHTML': { __html: this.props.hit._highlightResult.name.value }
+      }), createVNode(2, 'div', {
+        'className': 'hit-category',
+        'dangerouslySetInnerHTML': { __html: this.props.hit.category }
+      })]));
+    }
+  }]);
+
+  return ListItem;
+}(_infernoComponent2.default);
+
+var ListContainer = function (_Component2) {
+  _inherits(ListContainer, _Component2);
+
+  function ListContainer() {
+    _classCallCheck(this, ListContainer);
+
+    return _possibleConstructorReturn(this, (ListContainer.__proto__ || Object.getPrototypeOf(ListContainer)).apply(this, arguments));
+  }
+
+  _createClass(ListContainer, [{
+    key: 'render',
+    value: function render() {
       if (this.props.viewMode === 'list') {
         return createVNode(2, 'ul', {
           'className': 'hits-list'
         }, this.props.hits.map(function (hit) {
-          return createVNode(2, 'li', null, createVNode(2, 'a', {
-            'href': hit.link,
-            'target': '_blank'
-          }, [createVNode(2, 'div', {
-            'className': 'hit-thumb'
-          }, _this2.state.errors[hit.objectID] ? createVNode(2, 'div', {
-            'className': 'image-error'
-          }, createVNode(2, 'i', {
-            'className': 'fa fa-chain-broken'
-          })) : createVNode(2, 'img', {
-            'src': hit.image
-          }, null, {
-            'onError': function onError(e) {
-              return _this2.handleError(hit, e);
-            }
-          })), createVNode(2, 'div', {
-            'className': 'hit-name',
-            'dangerouslySetInnerHTML': { __html: hit._highlightResult.name.value }
-          }), createVNode(2, 'div', {
-            'className': 'hit-category',
-            'dangerouslySetInnerHTML': { __html: hit.category }
-          })]));
+          return createVNode(16, ListItem, {
+            'hit': hit
+          });
         }));
       }
     }
   }]);
 
-  return ListComponent;
+  return ListContainer;
 }(_infernoComponent2.default);
 
-var List = (0, _infernoRedux.connect)(mapStateToProps)(ListComponent);
+var List = (0, _infernoRedux.connect)(mapStateToProps)(ListContainer);
 
 exports.default = List;
 
@@ -31357,36 +31468,62 @@ function mapStateToProps(_ref) {
 
 var createVNode = _inferno2.default.createVNode;
 
-var TableComponent = function (_Component) {
-  _inherits(TableComponent, _Component);
+var TableRow = function (_Component) {
+  _inherits(TableRow, _Component);
 
-  function TableComponent() {
-    _classCallCheck(this, TableComponent);
+  function TableRow() {
+    _classCallCheck(this, TableRow);
 
-    return _possibleConstructorReturn(this, (TableComponent.__proto__ || Object.getPrototypeOf(TableComponent)).apply(this, arguments));
+    return _possibleConstructorReturn(this, (TableRow.__proto__ || Object.getPrototypeOf(TableRow)).apply(this, arguments));
   }
 
-  _createClass(TableComponent, [{
+  _createClass(TableRow, [{
+    key: 'render',
+    value: function render() {
+      return createVNode(2, 'tr', null, [createVNode(2, 'td', {
+        'dangerouslySetInnerHTML': { __html: this.props.hit._highlightResult.name.value }
+      }), createVNode(2, 'td', {
+        'dangerouslySetInnerHTML': { __html: this.props.hit.category }
+      }), createVNode(2, 'td', null, this.props.hit.rank), createVNode(2, 'td', null, createVNode(2, 'a', {
+        'href': this.props.hit.link,
+        'target': '_blank'
+      }, createVNode(2, 'i', {
+        'className': 'fa fa-share'
+      })))]);
+    }
+  }]);
+
+  return TableRow;
+}(_infernoComponent2.default);
+
+var TableContainer = function (_Component2) {
+  _inherits(TableContainer, _Component2);
+
+  function TableContainer() {
+    _classCallCheck(this, TableContainer);
+
+    return _possibleConstructorReturn(this, (TableContainer.__proto__ || Object.getPrototypeOf(TableContainer)).apply(this, arguments));
+  }
+
+  _createClass(TableContainer, [{
     key: 'render',
     value: function render() {
       if (this.props.viewMode === 'table') {
         return createVNode(2, 'table', {
           'className': 'hits-table'
-        }, [createVNode(2, 'thead', null, createVNode(2, 'tr', null, [createVNode(2, 'th', null, 'Name'), createVNode(2, 'th', null, 'CatCgory'), createVNode(2, 'th', null, 'Rank')])), createVNode(2, 'tbody', null, this.props.hits.map(function (hit) {
-          return createVNode(2, 'tr', null, [createVNode(2, 'td', {
-            'dangerouslySetInnerHTML': { __html: hit._highlightResult.name.value }
-          }), createVNode(2, 'td', {
-            'dangerouslySetInnerHTML': { __html: hit.category }
-          }), createVNode(2, 'td', null, hit.rank)]);
+        }, [createVNode(2, 'thead', null, createVNode(2, 'tr', null, [createVNode(2, 'th', null, 'Name'), createVNode(2, 'th', null, 'CatCgory'), createVNode(2, 'th', null, 'Rank'), createVNode(2, 'th')])), createVNode(2, 'tbody', null, this.props.hits.map(function (hit) {
+          return createVNode(16, TableRow, {
+            'hit': hit
+          });
         }))]);
       }
     }
   }]);
 
-  return TableComponent;
+  return TableContainer;
 }(_infernoComponent2.default);
 
-var Table = (0, _infernoRedux.connect)(mapStateToProps)(TableComponent);
+var Table = (0, _infernoRedux.connect)(mapStateToProps)(TableContainer);
 
 exports.default = Table;
 
@@ -31433,19 +31570,16 @@ function mapStateToProps(_ref) {
 
 var createVNode = _inferno2.default.createVNode;
 
-var ToolbarComponent = function (_Component) {
-  _inherits(ToolbarComponent, _Component);
+var Sort = function (_Component) {
+  _inherits(Sort, _Component);
 
-  function ToolbarComponent(props) {
-    _classCallCheck(this, ToolbarComponent);
+  function Sort() {
+    _classCallCheck(this, Sort);
 
-    var _this = _possibleConstructorReturn(this, (ToolbarComponent.__proto__ || Object.getPrototypeOf(ToolbarComponent)).call(this, props));
-
-    _this.toggleSort = _this.toggleSort.bind(_this);
-    return _this;
+    return _possibleConstructorReturn(this, (Sort.__proto__ || Object.getPrototypeOf(Sort)).apply(this, arguments));
   }
 
-  _createClass(ToolbarComponent, [{
+  _createClass(Sort, [{
     key: 'toggleSort',
     value: function toggleSort(e) {
       e.preventDefault();
@@ -31454,6 +31588,38 @@ var ToolbarComponent = function (_Component) {
       helper.search();
     }
   }, {
+    key: 'render',
+    value: function render() {
+      var _this2 = this;
+
+      return createVNode(2, 'a', {
+        'href': true,
+        'className': 'sort'
+      }, [' - ', this.props.currentIndex === 'apps' ? 'Highest rank' : 'Lowest rank', ' ', this.props.currentIndex === 'apps' ? createVNode(2, 'i', {
+        'className': 'fa fa-caret-down'
+      }) : createVNode(2, 'i', {
+        'className': 'fa fa-caret-up'
+      })], {
+        'onClick': function onClick(e) {
+          return _this2.toggleSort(e);
+        }
+      });
+    }
+  }]);
+
+  return Sort;
+}(_infernoComponent2.default);
+
+var ViewModes = function (_Component2) {
+  _inherits(ViewModes, _Component2);
+
+  function ViewModes() {
+    _classCallCheck(this, ViewModes);
+
+    return _possibleConstructorReturn(this, (ViewModes.__proto__ || Object.getPrototypeOf(ViewModes)).apply(this, arguments));
+  }
+
+  _createClass(ViewModes, [{
     key: 'selectMode',
     value: function selectMode(mode, e) {
       e.preventDefault();
@@ -31462,24 +31628,9 @@ var ToolbarComponent = function (_Component) {
   }, {
     key: 'render',
     value: function render() {
-      var _this2 = this;
+      var _this4 = this;
 
       return createVNode(2, 'div', {
-        'className': 'toolbar'
-      }, [createVNode(2, 'span', {
-        'className': 'total-hits'
-      }, this.props.nbHits), ' result(s) ', createVNode(2, 'span', {
-        'className': 'total-time'
-      }, [' - found in ', this.props.time, ' ms']), createVNode(2, 'a', {
-        'href': true,
-        'className': 'sort'
-      }, [' - ', this.props.currentIndex === 'apps' ? 'Highest rank' : 'Lowest rank', ' ', this.props.currentIndex === 'apps' ? createVNode(2, 'i', {
-        'className': 'fa fa-caret-down'
-      }) : createVNode(2, 'i', {
-        'className': 'fa fa-caret-up'
-      })], {
-        'onClick': this.toggleSort
-      }), createVNode(2, 'div', {
         'class': 'view-modes'
       }, [createVNode(2, 'a', {
         'href': true,
@@ -31488,7 +31639,7 @@ var ToolbarComponent = function (_Component) {
         'className': 'fa fa-list'
       }), {
         'onClick': function onClick(e) {
-          return _this2.selectMode('list', e);
+          return _this4.selectMode('list', e);
         }
       }), createVNode(2, 'a', {
         'href': true,
@@ -31497,7 +31648,7 @@ var ToolbarComponent = function (_Component) {
         'className': 'fa fa-table'
       }), {
         'onClick': function onClick(e) {
-          return _this2.selectMode('table', e);
+          return _this4.selectMode('table', e);
         }
       }), createVNode(2, 'a', {
         'href': true,
@@ -31506,7 +31657,7 @@ var ToolbarComponent = function (_Component) {
         'className': 'fa fa-th'
       }), {
         'onClick': function onClick(e) {
-          return _this2.selectMode('grid', e);
+          return _this4.selectMode('grid', e);
         }
       }), createVNode(2, 'a', {
         'href': true,
@@ -31515,16 +31666,46 @@ var ToolbarComponent = function (_Component) {
         'className': 'fa fa-bookmark-o'
       }), {
         'onClick': function onClick(e) {
-          return _this2.selectMode('bookmarks', e);
+          return _this4.selectMode('bookmarks', e);
         }
-      })])]);
+      })]);
     }
   }]);
 
-  return ToolbarComponent;
+  return ViewModes;
 }(_infernoComponent2.default);
 
-var Toolbar = (0, _infernoRedux.connect)(mapStateToProps)(ToolbarComponent);
+var ToolbarContainer = function (_Component3) {
+  _inherits(ToolbarContainer, _Component3);
+
+  function ToolbarContainer() {
+    _classCallCheck(this, ToolbarContainer);
+
+    return _possibleConstructorReturn(this, (ToolbarContainer.__proto__ || Object.getPrototypeOf(ToolbarContainer)).apply(this, arguments));
+  }
+
+  _createClass(ToolbarContainer, [{
+    key: 'render',
+    value: function render() {
+      return createVNode(2, 'div', {
+        'className': 'toolbar'
+      }, [createVNode(2, 'span', {
+        'className': 'total-hits'
+      }, this.props.nbHits), ' result(s) ', createVNode(2, 'span', {
+        'className': 'total-time'
+      }, [' - found in ', this.props.time, ' ms']), createVNode(16, Sort, {
+        'currentIndex': this.props.currentIndex,
+        'helper': this.props.helper
+      }), createVNode(16, ViewModes, {
+        'viewMode': this.props.viewMode
+      })]);
+    }
+  }]);
+
+  return ToolbarContainer;
+}(_infernoComponent2.default);
+
+var Toolbar = (0, _infernoRedux.connect)(mapStateToProps)(ToolbarContainer);
 
 exports.default = Toolbar;
 
