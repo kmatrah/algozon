@@ -149,7 +149,7 @@ table {
   .facet-toggler.facets-visible .facets-hidden {
     opacity: 0; }
   .facet-toggler.facets-hidden .counter {
-    display: block; }
+    display: bloc; }
   .facet-toggler.facets-hidden .facets-visible {
     opacity: 0; }
   .facet-toggler.facets-hidden .facets-hidden {
@@ -361,6 +361,8 @@ table {
     margin-left: 0; }
   .facet-toggler {
     display: block; }
+    .facet-toggler:hover {
+      color: #fff; }
   .facets {
     float: none;
     width: 100%; }
@@ -370,6 +372,8 @@ table {
       position: absolute;
       top: 50px;
       left: 0; }
+    .facets .facet-value:hover {
+      color: #212121; }
     .facets .facet.active .facet-value:hover {
       text-decoration: none; }
   .hits-list.facets-visible,
