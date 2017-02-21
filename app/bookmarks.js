@@ -9,7 +9,35 @@ function mapStateToProps({ helper, viewMode, bookmarks }) {
   return { helper, viewMode, bookmarks }
 }
 
-class BookmarksComponent extends Component {
+class Bookmark extends Component {
+  load(e) {
+    e.preventDefault()
+    this.props.helper.setState(algoliasearchHelper.url.getStateFromQueryString(this.props.bookmark.state))
+    this.context.store.dispatch({ type: UPDATE_SEARCH, helper: this.props.helper })
+    this.context.store.dispatch({ type: SELECT_MODE, mode: 'list' })
+    this.props.helper.search()
+  }
+
+  delete(e) {
+    e.preventDefault()
+    let bookmarks = _.compact(this.props.bookmarks.map(b => b.name === this.props.bookmark.name ? null : b))
+    localStorage.setItem("bookmarks", JSON.stringify(bookmarks))
+    this.context.store.dispatch({ type: SET_BOOKMARKS, bookmarks })
+  }
+
+  render() {
+    return <li>
+      <a href onClick={e => this.load(e) }>
+        <i className="fa fa-caret-right"></i> {this.props.bookmark.name}
+      </a>
+      <a className="bookmark-delete" href onClick={e => this.delete(e)}>
+        <i className="fa fa-trash"></i>
+      </a>
+    </li>
+  }
+}
+
+class BookmarksContainer extends Component {
   constructor(props) {
     super(props)
     this.save = this.save.bind(this)
@@ -25,21 +53,6 @@ class BookmarksComponent extends Component {
     }
   }
 
-  load(bookmark, e) {
-    e.preventDefault()
-    this.props.helper.setState(algoliasearchHelper.url.getStateFromQueryString(bookmark.state))
-    this.context.store.dispatch({ type: UPDATE_SEARCH, helper: this.props.helper })
-    this.context.store.dispatch({ type: SELECT_MODE, mode: 'list' })
-    this.props.helper.search()
-  }
-
-  delete(index, e) {
-    e.preventDefault()
-    let bookmarks = _.compact(this.props.bookmarks.map((b, i) => i === index ? null : b))
-    localStorage.setItem("bookmarks", JSON.stringify(bookmarks))
-    this.context.store.dispatch({ type: SET_BOOKMARKS, bookmarks })
-  }
-
   render() {
     if(this.props.viewMode === 'bookmarks') {
       return <div className="bookmarks">
@@ -53,14 +66,7 @@ class BookmarksComponent extends Component {
         }
         <ul>
           { this.props.bookmarks.map((bookmark, i) => (
-            <li>
-              <a href onClick={e => this.load(bookmark, e)}>
-                <i className="fa fa-caret-right"></i> {bookmark.name}
-              </a>
-              <a className="bookmark-delete" href onClick={e => this.delete(i, e)}>
-                <i className="fa fa-trash"></i>
-              </a>
-            </li>
+            <Bookmark bookmark={bookmark} bookmarks={this.props.bookmarks} helper={this.props.helper} />
           ))}
         </ul>
       </div>
@@ -68,6 +74,6 @@ class BookmarksComponent extends Component {
   }
 }
 
-const Bookmarks = connect(mapStateToProps)(BookmarksComponent)
+const Bookmarks = connect(mapStateToProps)(BookmarksContainer)
 
 export default Bookmarks

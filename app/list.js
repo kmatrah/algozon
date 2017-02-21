@@ -9,40 +9,44 @@ function mapStateToProps({ searchResult, viewMode }) {
     { viewMode, hits: searchResult.hits }
 }
 
-class ListComponent extends Component {
+class ListItem extends Component {
   constructor(props) {
     super(props)
-    this.state = {
-      errors: {}
-    }
+    this.state = { loadingError: false }
   }
 
-  handleError(hit, e) {
-    this.setState({ errors: _.merge({}, this.state.errors, { [hit.objectID]: true }) })
+  handleError() {
+    this.setState({ loadingError: true })
   }
 
   render() {
+    return <li>
+      <a href={this.props.hit.link} target="_blank">
+        <div className="hit-thumb">
+          { this.state.loadingError ?
+            <div className="image-error"><i className="fa fa-chain-broken"></i></div> :
+            <img onError={e => this.handleError()} src={this.props.hit.image} />
+          }
+        </div>
+        <div className="hit-name" dangerouslySetInnerHTML={{ __html: this.props.hit._highlightResult.name.value }}></div>
+        <div className="hit-category" dangerouslySetInnerHTML={{ __html: this.props.hit.category }}></div>
+      </a>
+    </li>
+  }
+}
+
+class ListContainer extends Component {
+  render() {
     if(this.props.viewMode === 'list') {
-      return  <ul className="hits-list">
+      return <ul className="hits-list">
         { this.props.hits.map(hit => (
-          <li>
-            <a href={hit.link} target="_blank">
-              <div className="hit-thumb">
-                { this.state.errors[hit.objectID] ?
-                  <div className="image-error"><i className="fa fa-chain-broken"></i></div> :
-                  <img onError={e => this.handleError(hit, e)} src={hit.image} />
-                }
-              </div>
-              <div className="hit-name" dangerouslySetInnerHTML={{ __html: hit._highlightResult.name.value }}></div>
-              <div className="hit-category" dangerouslySetInnerHTML={{ __html: hit.category }}></div>
-            </a>
-          </li>
+          <ListItem hit={hit} />
         ))}
       </ul>
     }
   }
 }
 
-const List = connect(mapStateToProps)(ListComponent)
+const List = connect(mapStateToProps)(ListContainer)
 
 export default List

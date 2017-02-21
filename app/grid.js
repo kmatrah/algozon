@@ -8,28 +8,32 @@ function mapStateToProps({ searchResult, viewMode }) {
     { viewMode, hits: searchResult.hits }
 }
 
-class GridComponent extends Component {
+class Cell extends Component {
   constructor(props) {
     super(props)
-    this.state = {
-      errors: {}
-    }
+    this.state = { loadingError: false }
   }
 
-  handleError(hit, e) {
-    this.setState({ errors: _.merge({}, this.state.errors, { [hit.objectID]: true }) })
+  handleError() {
+    this.setState({ loadingError: true })
   }
 
+  render() {
+    return <a href={this.props.hit.link} target="_blank">
+      { this.state.loadingError ?
+        <div className="image-error"><i className="fa fa-chain-broken"></i></div> :
+        <img onError={e => this.handleError()} src={this.props.hit.image} />
+      }
+    </a>
+  }
+}
+
+class GridContainer extends Component {
   render() {
     if(this.props.viewMode === 'grid') {
       return  <div className="hits-grid">
         { this.props.hits.map(hit => (
-          <a href={hit.link} target="_blank">
-            { this.state.errors[hit.objectID] ?
-              <div className="image-error"><i className="fa fa-chain-broken"></i></div> :
-              <img onError={e => this.handleError(hit, e)} src={hit.image} />
-            }
-          </a>
+          <Cell hit={hit} />
         ))}
         <div className="clearfix"></div>
       </div>
@@ -37,6 +41,6 @@ class GridComponent extends Component {
   }
 }
 
-const Grid = connect(mapStateToProps)(GridComponent)
+const Grid = connect(mapStateToProps)(GridContainer)
 
 export default Grid

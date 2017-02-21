@@ -8,7 +8,18 @@ function mapStateToProps({ searchResult, viewMode }) {
     { viewMode, hits: searchResult.hits }
 }
 
-class TableComponent extends Component {
+class TableRow extends Component {
+  render() {
+    return <tr>
+      <td dangerouslySetInnerHTML={{ __html: this.props.hit._highlightResult.name.value }}></td>
+      <td dangerouslySetInnerHTML={{ __html: this.props.hit.category }}></td>
+      <td>{this.props.hit.rank}</td>
+      <td><a href={this.props.hit.link} target="_blank"><i className="fa fa-share"></i></a></td>
+    </tr>
+  }
+}
+
+class TableContainer extends Component {
   render() {
     if(this.props.viewMode === 'table') {
       return  <table className="hits-table">
@@ -17,15 +28,12 @@ class TableComponent extends Component {
             <th>Name</th>
             <th>CatCgory</th>
             <th>Rank</th>
+            <th></th>
           </tr>
         </thead>
         <tbody>
           { this.props.hits.map(hit => (
-            <tr>
-              <td dangerouslySetInnerHTML={{ __html: hit._highlightResult.name.value }}></td>
-              <td dangerouslySetInnerHTML={{ __html: hit.category }}></td>
-              <td>{hit.rank}</td>
-            </tr>
+            <TableRow hit={hit} />
           ))}
         </tbody>
       </table>
@@ -33,6 +41,6 @@ class TableComponent extends Component {
   }
 }
 
-const Table = connect(mapStateToProps)(TableComponent)
+const Table = connect(mapStateToProps)(TableContainer)
 
 export default Table
