@@ -346,7 +346,8 @@ table {
     position: fixed;
     top: 0;
     left: 0;
-    width: 100%; }
+    width: 100%;
+    z-index: 100; }
   .app {
     width: 100%;
     padding-top: 50px; }
