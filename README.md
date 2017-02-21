@@ -32,6 +32,8 @@ To build the frontend application (from the root folder of the project) :
 $ grunt
 ```
 
+Credentials to use the Algolia API (read-only access) can be found in the **app/config.js** file.
+
 Produced assets will be put inside the **public** folder and served by the backend.
 
 ### Backend

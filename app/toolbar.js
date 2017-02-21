@@ -3,6 +3,7 @@ import Component from 'inferno-component'
 import { connect } from 'inferno-redux'
 
 import { UPDATE_SEARCH, SELECT_MODE } from './actions'
+import { INDEX_NAME, INDEX_NAME_REVERSE } from './config'
 
 function mapStateToProps({ helper, searchResult, viewMode }) {
   return searchResult === null ?
@@ -13,7 +14,7 @@ function mapStateToProps({ helper, searchResult, viewMode }) {
 class Sort extends Component {
   toggleSort(e) {
     e.preventDefault()
-    let helper = this.props.helper.setIndex(this.props.currentIndex === 'apps' ? 'apps_rank_asc' : 'apps')
+    let helper = this.props.helper.setIndex(this.props.currentIndex === INDEX_NAME ? INDEX_NAME_REVERSE : INDEX_NAME)
     this.context.store.dispatch({ type: UPDATE_SEARCH, helper: helper })
     helper.search()
   }
@@ -21,8 +22,8 @@ class Sort extends Component {
   render() {
     return <a href onClick={e => this.toggleSort(e)} className="sort">
       { ' - ' }
-      {this.props.currentIndex === 'apps' ? 'Highest rank' : 'Lowest rank'}{' '}
-      {this.props.currentIndex === 'apps' ?
+      {this.props.currentIndex === INDEX_NAME ? 'Highest rank' : 'Lowest rank'}{' '}
+      {this.props.currentIndex === INDEX_NAME ?
         <i className="fa fa-caret-down"></i> :
         <i className="fa fa-caret-up"></i>
       }

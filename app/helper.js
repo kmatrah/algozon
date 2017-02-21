@@ -1,12 +1,10 @@
 import algoliasearch from 'algoliasearch'
 import algoliasearchHelper from 'algoliasearch-helper'
 
-const appId = 'GIH37VVGGY';
-const apiKey = '04fda7fc532f6a41d8fdf993f3f41836';
-const indexName = 'apps';
+import { APP_ID, API_KEY, INDEX_NAME } from './config'
 
-const client = algoliasearch(appId, apiKey);
+const client = algoliasearch(APP_ID, API_KEY);
 
-export default algoliasearchHelper(client, indexName, {
+export default algoliasearchHelper(client, INDEX_NAME, {
   disjunctiveFacets: ['category']
 })
