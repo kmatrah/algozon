@@ -27,8 +27,8 @@ header {
     font-weight: 100;
     color: #fff;
     line-height: 50px; }
-  header i {
-    color: #c28e0a; }
+    header h1 i {
+      color: #c28e0a; }
   header span {
     font-size: 12px; }
 
@@ -116,11 +116,49 @@ table {
   font-family: 'Rubik', sans-serif !important;
   font-weight: 100; }
 
+.facet-toggler {
+  position: absolute;
+  top: 14px;
+  left: 10px;
+  font-size: 20px;
+  color: #fff;
+  display: none; }
+  .facet-toggler i {
+    transition: opacity .2s;
+    position: absolute;
+    top: 0;
+    left: 0; }
+  .facet-toggler .counter {
+    position: absolute;
+    top: -5px;
+    right: -30px;
+    width: 16px;
+    height: 16px;
+    line-height: 16px;
+    font-size: 12px;
+    border-radius: 50%;
+    background: #338ca6;
+    color: #fff;
+    text-align: center; }
+  .facet-toggler.facets-visible .counter {
+    display: none; }
+  .facet-toggler.facets-visible .facets-visible {
+    opacity: 1; }
+  .facet-toggler.facets-visible .facets-hidden {
+    opacity: 0; }
+  .facet-toggler.facets-hidden .counter {
+    display: block; }
+  .facet-toggler.facets-hidden .facets-visible {
+    opacity: 0; }
+  .facet-toggler.facets-hidden .facets-hidden {
+    opacity: 1; }
+
 .facets {
   float: left;
   width: 25%;
   padding: 20px;
-  padding-bottom: 0; }
+  padding-bottom: 0;
+  background: #fff; }
   .facets .facet {
     height: 16px;
     cursor: pointer;
@@ -304,15 +342,34 @@ table {
       text-decoration: none; } }
 
 @media all and (max-width: 1024px) {
-  .app {
+  header {
+    position: fixed;
+    top: 0;
+    left: 0;
     width: 100%; }
+  .app {
+    width: 100%;
+    padding-top: 50px; }
   .view {
     margin-left: 0; }
+  .facet-toggler {
+    display: block; }
   .facets {
     float: none;
     width: 100%; }
+    .facets.facets-hidden {
+      display: none; }
+    .facets.facets-visible {
+      position: absolute;
+      top: 50px;
+      left: 0; }
     .facets .facet.active .facet-value:hover {
       text-decoration: none; }
+  .hits-list.facets-visible,
+  .hits-table.facets-visible,
+  .hits-grid.facets-visible,
+  .bookmarks.facets-visible {
+    display: none; }
   .toolbar .total-time {
     display: none; }
   .hits-grid img {
