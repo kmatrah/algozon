@@ -31525,6 +31525,7 @@ var SearchComponent = function (_Component) {
       }, [createVNode(2, 'i', {
         'className': 'fa fa-search'
       }), createVNode(512, 'input', {
+        'autofocus': true,
         'type': 'text',
         'value': this.props.query,
         'className': 'search-input',

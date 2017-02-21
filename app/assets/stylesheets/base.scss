@@ -83,6 +83,8 @@ input[type="text"] {
   width: 100%;
   padding: 4px 6px;
   outline: none;
+  border-radius: 0;
+  box-shadow: none;
   border: 1px solid $border-color;
   font-size: 12px;
   font-weight: $font-weight;

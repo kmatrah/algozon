@@ -1,4 +1,6 @@
 .search {
+  border: 1px solid $border-color;
+  margin: 0 20px;
   margin-top: 20px;
 
   i {
@@ -7,11 +9,13 @@
     width: 50px;
     color: $text-color-lite;
     padding: 0 20px;
+    color: $secondary-color;
   }
 
   input.search-input {
     width: calc(100% - 60px);
     padding: 8px 12px;
     font-size: 18px;
+    border: 0;
   }
 }

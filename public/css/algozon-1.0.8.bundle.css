@@ -62,6 +62,8 @@ input[type="text"] {
   width: 100%;
   padding: 4px 6px;
   outline: none;
+  border-radius: 0;
+  box-shadow: none;
   border: 1px solid #eee;
   font-size: 12px;
   font-weight: 100;
@@ -218,17 +220,21 @@ table {
     transform: scale(1); }
 
 .search {
+  border: 1px solid #eee;
+  margin: 0 20px;
   margin-top: 20px; }
   .search i {
     font-size: 16px;
     text-align: center;
     width: 50px;
     color: #aaa;
-    padding: 0 20px; }
+    padding: 0 20px;
+    color: #338ca6; }
   .search input.search-input {
     width: calc(100% - 60px);
     padding: 8px 12px;
-    font-size: 18px; }
+    font-size: 18px;
+    border: 0; }
 
 .toolbar {
   font-size: 14px;

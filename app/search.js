@@ -24,7 +24,7 @@ class SearchComponent extends Component {
   render() {
     return <div class="search">
       <i className="fa fa-search"></i>
-      <input type="text" value={this.props.query} className="search-input" placeholder="Search for apps" onInput={this.search} />
+      <input autofocus type="text" value={this.props.query} className="search-input" placeholder="Search for apps" onInput={this.search} />
     </div>
   }
 }
