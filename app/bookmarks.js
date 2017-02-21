@@ -5,8 +5,8 @@ import { connect } from 'inferno-redux'
 
 import { UPDATE_SEARCH, SELECT_MODE, SET_BOOKMARKS } from './actions'
 
-function mapStateToProps({ helper, viewMode, bookmarks }) {
-  return { helper, viewMode, bookmarks }
+function mapStateToProps({ helper, facetToggler, viewMode, bookmarks }) {
+  return { facetToggler, helper, viewMode, bookmarks }
 }
 
 class Bookmark extends Component {
@@ -55,7 +55,7 @@ class BookmarksContainer extends Component {
 
   render() {
     if(this.props.viewMode === 'bookmarks') {
-      return <div className="bookmarks">
+      return <div className={`bookmarks ${this.props.facetToggler}`}>
         <div class="notice">
           You can save here your current search. Just give it a name and re-use it later!
         </div>

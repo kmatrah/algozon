@@ -5,12 +5,12 @@ import _ from 'lodash'
 
 import { UPDATE_SEARCH } from './actions'
 
-function mapStateToProps({ helper, searchResult }) {
+function mapStateToProps({ facetToggler, helper, searchResult }) {
   let facets = helper.getState().disjunctiveFacets
 
   return searchResult === null ?
-    { helper, facets, facetValues: _.fromPairs(_.map(facets, f => [f, []])) } :
-    { helper, facets, facetValues: _.fromPairs(_.map(facets, f => [f, searchResult.getFacetValues(f)])) }
+    { facetToggler, helper, facets, facetValues: _.fromPairs(_.map(facets, f => [f, []])) } :
+    { facetToggler, helper, facets, facetValues: _.fromPairs(_.map(facets, f => [f, searchResult.getFacetValues(f)])) }
 }
 
 class FacetValue extends Component {
@@ -63,7 +63,7 @@ class Facet extends Component {
 
 class FacetsContainer extends Component {
   render() {
-    return <ul className="facets">
+    return <ul className={`facets ${this.props.facetToggler}`}>
       { this.props.facets.map(facet => (
         <Facet
           name={facet}

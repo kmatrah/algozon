@@ -3,10 +3,10 @@ import Component from 'inferno-component'
 import { connect } from 'inferno-redux'
 import _ from 'lodash'
 
-function mapStateToProps({ searchResult, viewMode }) {
+function mapStateToProps({ facetToggler, searchResult, viewMode }) {
   return searchResult === null ?
-    { viewMode, hits: [] } :
-    { viewMode, hits: searchResult.hits }
+    { facetToggler, viewMode, hits: [] } :
+    { facetToggler, viewMode, hits: searchResult.hits }
 }
 
 class ListItem extends Component {
@@ -38,7 +38,7 @@ class ListItem extends Component {
 class ListContainer extends Component {
   render() {
     if(this.props.viewMode === 'list') {
-      return <ul className="hits-list">
+      return <ul className={`hits-list ${this.props.facetToggler}`}>
         { this.props.hits.map(hit => (
           <ListItem hit={hit} />
         ))}

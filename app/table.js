@@ -2,10 +2,10 @@ import Inferno from 'inferno'
 import Component from 'inferno-component'
 import { connect } from 'inferno-redux'
 
-function mapStateToProps({ searchResult, viewMode }) {
+function mapStateToProps({ facetToggler, searchResult, viewMode }) {
   return searchResult === null ?
-    { viewMode, hits: [] } :
-    { viewMode, hits: searchResult.hits }
+    { facetToggler, viewMode, hits: [] } :
+    { facetToggler, viewMode, hits: searchResult.hits }
 }
 
 class TableRow extends Component {
@@ -22,7 +22,7 @@ class TableRow extends Component {
 class TableContainer extends Component {
   render() {
     if(this.props.viewMode === 'table') {
-      return  <table className="hits-table">
+      return  <table className={`hits-table ${this.props.facetToggler}`}>
         <thead>
           <tr>
             <th>Name</th>

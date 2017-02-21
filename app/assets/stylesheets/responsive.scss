@@ -21,17 +21,39 @@
 }
 
 @media all and (max-width: 1024px) {
+  header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+  }
+
   .app {
     width: 100%;
+    padding-top: 50px;
   }
 
   .view {
     margin-left: 0;
   }
 
+  .facet-toggler {
+    display: block;
+  }
+
   .facets {
     float: none;
     width: 100%;
+
+    &.facets-hidden {
+      display: none;
+    }
+
+    &.facets-visible {
+      position: absolute;
+      top: 50px;
+      left: 0;
+    }
 
     .facet.active {
       .facet-value {
@@ -40,6 +62,13 @@
         }
       }
     }
+  }
+
+  .hits-list.facets-visible,
+  .hits-table.facets-visible,
+  .hits-grid.facets-visible,
+  .bookmarks.facets-visible {
+    display: none;
   }
 
   .toolbar .total-time {

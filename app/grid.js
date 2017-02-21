@@ -2,10 +2,10 @@ import Inferno from 'inferno'
 import Component from 'inferno-component'
 import { connect } from 'inferno-redux'
 
-function mapStateToProps({ searchResult, viewMode }) {
+function mapStateToProps({ facetToggler, searchResult, viewMode }) {
   return searchResult === null ?
-    { viewMode, hits: [] } :
-    { viewMode, hits: searchResult.hits }
+    { facetToggler, viewMode, hits: [] } :
+    { facetToggler, viewMode, hits: searchResult.hits }
 }
 
 class Cell extends Component {
@@ -31,7 +31,7 @@ class Cell extends Component {
 class GridContainer extends Component {
   render() {
     if(this.props.viewMode === 'grid') {
-      return  <div className="hits-grid">
+      return  <div className={`hits-grid ${this.props.facetToggler}`}>
         { this.props.hits.map(hit => (
           <Cell hit={hit} />
         ))}

@@ -1,5 +1,14 @@
 import searchHelper from './helper'
-import { UPDATE_SEARCH, UPDATE_RESULT, SELECT_MODE, SET_BOOKMARKS } from './actions'
+import { UPDATE_SEARCH, UPDATE_RESULT, SELECT_MODE, SET_BOOKMARKS, SET_TOGGLER } from './actions'
+
+export const facetToggler = (state = 'facets-hidden', action) => {
+  switch (action.type) {
+    case SET_TOGGLER:
+      return action.visibility
+    default:
+      return state
+  }
+}
 
 export const helper = (state = searchHelper, action) => {
   switch (action.type) {

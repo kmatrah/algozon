@@ -7,6 +7,7 @@ import _ from 'lodash'
 import helper from './helper'
 import * as reducers from './reducers'
 import { UPDATE_RESULT } from './actions'
+import FacetToggler from './facet-toggler'
 import Toolbar from './toolbar'
 import Search from './search'
 import Facets from './facets'
@@ -34,18 +35,26 @@ window.onpopstate = event => {
 
 const App = () => (
   <Provider store={store}>
-    <div className="app">
-      <Search />
-      <Facets />
-      <div className="view">
-        <Toolbar />
-        <List />
-        <Table />
-        <Grid />
-        <Bookmarks />
-        <Pagination />
+    <section className="main">
+      <header>
+        <FacetToggler />
+        <h1>
+          <i class="fa fa-shopping-cart"></i> Algozon<span>.fr</span>
+        </h1>
+      </header>
+      <div className="app">
+        <Search />
+        <Facets />
+        <div className="view">
+          <Toolbar />
+          <List />
+          <Table />
+          <Grid />
+          <Bookmarks />
+          <Pagination />
+        </div>
       </div>
-    </div>
+    </section>
   </Provider>
 )
 

@@ -1,8 +1,67 @@
+.facet-toggler {
+  position: absolute;
+  top: 14px;
+  left: 10px;
+  font-size: 20px;
+  color: #fff;
+  display: none;
+
+  i {
+    transition: opacity .2s;
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+
+  .counter {
+    position: absolute;
+    top: -5px;
+    right: -30px;
+    width: 16px;
+    height: 16px;
+    line-height: 16px;
+    font-size: 12px;
+    border-radius: 50%;
+    background: $secondary-color;
+    color: #fff;
+    text-align: center;
+  }
+
+  &.facets-visible {
+    .counter {
+      display: none;
+    }
+
+    .facets-visible {
+      opacity: 1;
+    }
+
+    .facets-hidden {
+      opacity: 0;
+    }
+  }
+
+  &.facets-hidden {
+    .counter {
+      display: block;
+    }
+
+    .facets-visible {
+      opacity: 0;
+    }
+
+    .facets-hidden {
+      opacity: 1;
+    }
+  }
+}
+
 .facets {
   float: left;
   width: $facets-width;
   padding: 20px;
   padding-bottom: 0;
+  background: #fff;
 
   .facet {
     height: 16px;
